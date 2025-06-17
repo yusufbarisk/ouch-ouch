@@ -1,11 +1,8 @@
 package com.bist.ouch_ouch.SoupBinTCP.utils;
 
-import org.agrona.DirectBuffer;
-import org.agrona.MutableDirectBuffer;
-
 import java.nio.ByteBuffer;
 
-public class StringUtils {
+public class AsciiUtils {
 
 
     public static String readAsciiString(ByteBuffer buffer, int index, int length) {
@@ -17,6 +14,9 @@ public class StringUtils {
         buffer.position(originalPos);
 
         return new String(bytes, java.nio.charset.StandardCharsets.US_ASCII);
+    }
+    public static int readAsciiInt(ByteBuffer buffer, int index, int length) {
+        return Integer.parseInt(readAsciiString(buffer, index, length));
     }
 
 
