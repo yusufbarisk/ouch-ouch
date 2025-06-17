@@ -1,47 +1,32 @@
 package com.bist.ouch_ouch.SoupBinTCP.transport;
 
+import com.bist.ouch_ouch.SoupBinTCP.SoupPacket;
+import com.bist.ouch_ouch.SoupBinTCP.SoupPacketFactory;
 import jakarta.websocket.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
+import java.util.function.Consumer;
 
-public class Framer {
+public final class Framer {
+    public void process(ByteBuffer recvBuf, Consumer<SoupPacket> sink) {
+        while (recvBuf.remaining() >= 2) {
+            recvBuf.mark();
+            int len = Short.toUnsignedInt(recvBuf.getShort());
 
-    @Autowired
-    Session session;
-
-    ByteBuffer byteBuffer;
-
-    public Framer(ByteBuffer recvBuffer) {
-        this.byteBuffer = recvBuffer;
-    }
-
-    public void process() {
-        byteBuffer.flip();
-
-        while (byteBuffer.remaining() >= 2) {
-            byteBuffer.mark();
-
-            int length = byteBuffer.getShort() & 0xFFFF; // Read unsigned 2-byte length
-
-            if (byteBuffer.remaining() < length) {
-                byteBuffer.reset();
-                break;
+            if (recvBuf.remaining() < len){
+                recvBuf.reset();
+                return;
             }
 
-            byte[] message = new byte[length];
-            byteBuffer.get(message);
+        int start = recvBuf.position();
+        char type = (char) recvBuf.get(start);
+        SoupPacket pkt = SoupPacketFactory.INSTANCE.wrap(recvBuf, start, type);
+        sink.accept(pkt);
 
-            handleMessage(message);
+        recvBuf.position(start + len);
         }
-
-        byteBuffer.compact();
     }
-
-    private void handleMessage(byte[] message) {
-        session.
-        System.out.println("Received message: " + Arrays.toString(message));
-    }
-
 }
+

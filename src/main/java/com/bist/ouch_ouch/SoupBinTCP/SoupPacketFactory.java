@@ -2,8 +2,8 @@ package com.bist.ouch_ouch.SoupBinTCP;
 
 import java.nio.ByteBuffer;
 
-public final class SoupPacketFactory {
-
+public enum SoupPacketFactory {
+    INSTANCE;
 
 
     private final SequencedData   sequencedData   = new SequencedData();
@@ -17,7 +17,7 @@ public final class SoupPacketFactory {
     private final ClientHeartbeat clientHeartbeat = new ClientHeartbeat();
 
 
-    /** Return a wrapped fly-weight for <type> at <pos> in <buf>. */
+    /** This way of doing this may be unsafe. Check later */
     public SoupPacket wrap(ByteBuffer buf, int pos, char type) {
         return switch (type) {
 
