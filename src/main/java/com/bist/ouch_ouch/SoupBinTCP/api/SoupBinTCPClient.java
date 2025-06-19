@@ -10,11 +10,6 @@ public class SoupBinTCPClient {
 
 
     public int listen(){
-
-<<<<<<< Updated upstream:src/main/java/com/bist/ouch_ouch/SoupBinTCP/api/SoupBinTCPClient.java
-
-=======
->>>>>>> Stashed changes:src/main/java/com/bist/ouch_ouch/SoupBinTCP/SoupBinTCPClient.java
         return -1;
     }
 

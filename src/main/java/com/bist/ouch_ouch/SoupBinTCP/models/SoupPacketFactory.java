@@ -1,4 +1,4 @@
-package com.bist.ouch_ouch.SoupBinTCP;
+package com.bist.ouch_ouch.SoupBinTCP.models;
 
 import java.nio.ByteBuffer;
 

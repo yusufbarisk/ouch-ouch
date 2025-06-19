@@ -1,12 +1,9 @@
 package com.bist.ouch_ouch.SoupBinTCP.transport;
 
-import com.bist.ouch_ouch.SoupBinTCP.SoupPacket;
-import com.bist.ouch_ouch.SoupBinTCP.SoupPacketFactory;
-import jakarta.websocket.Session;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.bist.ouch_ouch.SoupBinTCP.models.SoupPacket;
+import com.bist.ouch_ouch.SoupBinTCP.models.SoupPacketFactory;
 
 import java.nio.ByteBuffer;
-import java.util.Arrays;
 import java.util.function.Consumer;
 
 public final class Framer {

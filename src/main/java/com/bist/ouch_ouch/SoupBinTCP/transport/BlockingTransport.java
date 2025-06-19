@@ -19,13 +19,14 @@ public class BlockingTransport implements Runnable {
 
 
 
+
     public BlockingTransport(Socket socket, SoupBinTCPSession session) throws IOException {
         this.socket = socket;
         this.session = session;
 
         this.recvBuffer = ByteBuffer.allocate(64 * 1024); // 64K buffer for now
         this.inputStream = socket.getInputStream();
-        this.framer  = new Framer(recvBuffer);
+        this.framer  = new Framer();
 
     }
 
@@ -49,7 +50,7 @@ public class BlockingTransport implements Runnable {
 
                 framer.process(recvBuffer, session::onPacket);
 
-                recvBuffer.compact()
+                recvBuffer.compact();
             }
 //            while (!socket.isClosed()){
 //                int readSize = socket.getInputStream().read(recvBuffer.array());
